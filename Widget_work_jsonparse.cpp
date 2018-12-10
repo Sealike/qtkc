@@ -244,6 +244,51 @@ QString Widget::HttpResultParseStore(QString strResult)
                                 }
 
 
+                                // data."dest_lat"
+                                if(arrayobj.contains("dest_lat"))
+                                {
+                                    QJsonValue val = arrayobj.value("dest_lat");
+                                    if(val.isDouble())
+                                    {
+                                        int temp = (val.toInt());
+                                        if(temp <=0)  temp = 10;
+                                        m_ui_param->dest_lat = temp;
+                                        ret = "dest_lat ok";
+                                        ret = "ok";
+                                    }
+                                    else
+                                    {
+                                        ret = "dest_lat is not double";
+                                    }
+                                }
+                                else
+                                {
+                                    ret = "dest_lat not contained";
+                                }
+
+                                // data."dest_lon"
+                                if(arrayobj.contains("dest_lon"))
+                                {
+                                    QJsonValue val = arrayobj.value("dest_lon");
+                                    if(val.isDouble())
+                                    {
+                                        int temp = (val.toInt());
+                                        if(temp <=0)  temp = 10;
+                                        m_ui_param->dest_lat = temp;
+                                        ret = "dest_lon ok";
+                                        ret = "ok";
+                                    }
+                                    else
+                                    {
+                                        ret = "dest_lon is not double";
+                                    }
+                                }
+                                else
+                                {
+                                    ret = "dest_lon not contained";
+                                }
+
+
                                 //"state":"已制订",
                                 if(arrayobj.contains("state"))
                                 {
@@ -284,6 +329,7 @@ QString Widget::HttpResultParseStore(QString strResult)
                                 {
                                     ret = "phone not contained";
                                 }
+
                                 // data."taskmode":nomal/special------------//wy
                                 if(arrayobj.contains("taskmodel"))
                                 {
@@ -379,6 +425,26 @@ QString Widget::HttpResultParseStore(QString strResult)
                                         else
                                         {
                                             ret = "lowpower not contained";
+                                        }
+
+                                        if(alarmruleObj.contains("unlockdislimit"))
+                                        {
+                                            QJsonValue value = alarmruleObj.value("unlockdislimit");
+                                            if(value.isDouble())
+                                            {
+                                                int temp = (value.toInt());
+                                                if(temp <=0)  temp = 10;
+                                                m_ui_param->unlock_max_distance = temp;
+                                                ret = "unlockdislimit ok";
+                                                ret = "ok";
+                                            }
+                                            else{
+                                                ret = "unlockdislimit not double";
+                                            }
+                                        }
+                                        else
+                                        {
+                                            ret = "destroy not contained";
                                         }
 
                                     }

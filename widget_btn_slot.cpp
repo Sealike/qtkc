@@ -16,6 +16,7 @@
 #include "keyBoard.h"
 #include <QDateTime>
 #include <dlfcn.h>
+#include <QtMath>
 
 /****************************************************
  * *
@@ -445,6 +446,38 @@ void Widget::on_btn_addition_clicked()
     s_Layout->setCurrentIndex(widget_addition_index);
 }
 
+
+static double getDistance(double lon1,double lat1,double lon2,double lat2)
+{
+    double distance;
+
+
+    double R = 6378137; // 地球半径
+    lat1 = lat1 * MATH_PI / 180.0;
+    lat2 = lat2 * MATH_PI / 180.0;
+    double a = lat1 - lat2;
+    double b = (lon1 - lon2) * MATH_PI / 180.0;
+    double sa2, sb2;
+    sa2 = qSin(a / 2.0);
+    sb2 = qSin(b / 2.0);
+    distance = 2 * R * qAsin(qSqrt(sa2 * sa2 + qCos(lat1)* qCos(lat2) * sb2 * sb2));
+
+    return distance;
+}
+
+bool Widget::unlock_in_area()
+{
+    bool ret = false;
+
+    if (m_ui_param->unlock_max_distance > getDistance(m_ui_param->dest_lon,m_ui_param->dest_lat,PrccessParam.lon.toDouble(),PrccessParam.lat.toDouble()))
+    {
+        ret = true;
+    }
+
+    return ret;
+}
+
+
 //slot..4G_unlock_clicked
 void Widget::on_btn_unlock4G_clicked()
 {
@@ -489,6 +522,14 @@ void Widget::on_btn_unlock4G_clicked()
         int ret= generate_SelectMsb("你确定要使用4G解锁吗？");
         if(ret == QMessageBox::Ok)
         {
+//            double now_lon;
+//            double now_lat;
+            if(unlock_in_area() == false)
+            {
+                generate_WaringMsb("not in area");
+                return;
+            }
+
             widget_resume_index = s_Layout->currentIndex();
             label_tipDialog->setText("正在获取开锁码，请稍候...");
             s_Layout->setCurrentIndex(widget_tipDialog_index);
@@ -546,6 +587,12 @@ if(Check_Taskmode()=="special")
         int ret= generate_SelectMsb("你确定要使用北斗解锁吗？");
         if(ret == QMessageBox::Ok)
         {
+            if(unlock_in_area() == false)
+            {
+                generate_WaringMsb("not in area.");
+                return;
+            }
+
             BDThread::bd_unlock_cmd();
 
             widget_resume_index = s_Layout->currentIndex();

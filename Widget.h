@@ -46,6 +46,8 @@ extern bool  isReadCard;
 #define     BTNBIG_WIDTH    120
 #define     BTNBIG_HEIGHT   120
 
+#define     MATH_PI         3.1415926
+
 //最大告警条数
 #define     MAX_WARNING_NUMBER  200
 //告警闪烁间隔
@@ -98,6 +100,9 @@ typedef struct _UiParam_st
     QString bt_disconnected;
     QString lowpower;
     QString feixingmode;//wy  flyon  flyoff
+    double  unlock_max_distance;
+    double  dest_lat;
+    double  dest_lon;
 }UiParam_st, *UiParam_t;
 
 typedef struct _SystemStatus_st
@@ -210,6 +215,7 @@ private:
 
 public:
     QString Check_Taskmode( void );//wy
+    bool unlock_in_area();//wy
     explicit Widget(QWidget *parent = 0);
     ~Widget();
 
