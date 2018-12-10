@@ -367,6 +367,7 @@ QWidget* Widget::getwidget_B2Indentity()
     label_B2Indentity->setAlignment(Qt::AlignRight|Qt::AlignVCenter);
     //edit_B2Indentity->setEchoMode(QLineEdit::Password);
     btn_B2Indentity->setFocusPolicy(Qt::NoFocus);
+    label_B2Indentity->setFocus();
 
     label_B2Indentity->resize(LABEL_WIDTH, LABEL_HEIGHT);
     edit_B2Indentity->resize(EDIT_WIDTH, EDIT_HEIGHT);

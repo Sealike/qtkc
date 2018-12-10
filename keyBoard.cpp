@@ -159,7 +159,8 @@ void keyBoard::slotBtnClicked()
     if(objectName == "typeBtn")
     {
         int i = keyWindow->currentIndex();
-        index_resume = i;
+        qDebug() << "keywindow->currentIndex = "<< i;
+
         if(i == index_type)
         {
             keyWindow->setCurrentIndex(index_resume);
@@ -168,6 +169,7 @@ void keyBoard::slotBtnClicked()
         {
             keyWindow->setCurrentIndex(index_type);
         }
+        index_resume = i;
     }
 //    else if(objectName == "typeSel")
     else if (objectName == "delBtn")
