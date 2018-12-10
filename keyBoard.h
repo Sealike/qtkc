@@ -36,6 +36,8 @@ private:
     int index_num;
     int index_letter;
     int index_sign;
+    int index_type;
+    int index_resume;
 
     QPoint mousePoint;              //鼠标拖动自定义标题栏时的坐标
     bool mousePressed;              //鼠标是否按下
@@ -55,7 +57,14 @@ private:
     QWidget *letterWindow;          // 字母键盘
     QWidget *numberWindow;          // 数字键盘
     QWidget *signWindow;            // 字母键盘
+
+    QWidget *typeSelWindow;         //
 //    QLabel *infoLabel;              // 显示键盘信息
+
+    QPushButton *typeBtnNum;
+    QPushButton *typeBtnUpper;
+    QPushButton *typeBtnLower;
+    QPushButton *typeBtnSymbol;
 
     QPushButton *closeBtn;
     QPushButton *delBtn;

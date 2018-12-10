@@ -136,26 +136,40 @@ void keyBoard::slotBtnClicked()
     QPushButton *btn = (QPushButton *)sender();
     QString objectName = btn->objectName();
 
-    if (objectName == "typeBtn")
+//    if (objectName == "typeBtn")
+//    {
+//        if (currentType == "num")
+//        {
+//            currentType = "min";
+//        }
+//        else if (currentType == "min")
+//        {
+//            currentType = "max";
+//        }
+//        else if (currentType == "max")
+//        {
+//            currentType = "sign";
+//        }
+//        else if (currentType == "sign")
+//        {
+//            currentType = "num";
+//        }
+//        changeType(currentType);
+//    }
+    if(objectName == "typeBtn")
     {
-        if (currentType == "num")
+        int i = keyWindow->currentIndex();
+        index_resume = i;
+        if(i == index_type)
         {
-            currentType = "min";
+            keyWindow->setCurrentIndex(index_resume);
         }
-        else if (currentType == "min")
+        else
         {
-            currentType = "max";
+            keyWindow->setCurrentIndex(index_type);
         }
-        else if (currentType == "max")
-        {
-            currentType = "sign";
-        }
-        else if (currentType == "sign")
-        {
-            currentType = "num";
-        }
-        changeType(currentType);
     }
+//    else if(objectName == "typeSel")
     else if (objectName == "delBtn")
     {
         if (currentLineEdit != 0)
@@ -194,14 +208,38 @@ void keyBoard::slotBtnClicked()
         {
             value = value.right(1);
         }
+        else if (value == "数字0-9")
+        {
+            currentType = "num";
+            changeType(currentType);
+        }
+        else if(value == "大写字母A-Z")
+        {
+            currentType = "min";
+            changeType(currentType);
+            currentType = "max";
+            changeType(currentType);
+        }
+        else if(value == "小写字母a-z")
+        {
+            currentType = "min";
+            changeType(currentType);
+        }
+        else if(value == "符号#?!")
+        {
+            currentType = "sign";
+            changeType(currentType);
+        }
+
         // 当前不是中文模式,则单击按钮对应text为传递参数
-        if (currentType != "chinese")
+        else if (currentType != "chinese")
         {
             if (currentLineEdit != 0)
             {
                 currentLineEdit->insert(value);
             }
         }
+
     }
 }
 
@@ -229,6 +267,7 @@ void keyBoard::InitWindow()
     letterWindow = new QWidget;
     numberWindow = new QWidget;
     signWindow = new QWidget;
+    typeSelWindow = new QWidget;
 
 
     qDebug() << "layout init";
@@ -253,7 +292,7 @@ void keyBoard::InitWindow()
     typeBtn = new QPushButton(this);
     typeBtn->setObjectName("typeBtn");
     typeBtn->setProperty("function", true);
-    typeBtn->setText(tr("数字"));
+    typeBtn->setText(tr("切换"));
     typeBtn->setFixedSize(2*BTN_SIZE, BTN_SIZE);
 
     // 换肤
@@ -613,10 +652,56 @@ void keyBoard::InitWindow()
 
     qDebug() << "signLayout ok";
 
+    typeBtnNum = new QPushButton(typeSelWindow);
+    typeBtnNum->setFixedSize(3*BTN_SIZE, BTN_SIZE);
+    typeBtnNum->setObjectName("数字0-9");
+    typeBtnNum->setProperty("typesel", true);
+    typeBtnNum->setText(tr("数字0-9"));
+
+    typeBtnUpper = new QPushButton(typeSelWindow);
+    typeBtnUpper->setFixedSize(3*BTN_SIZE, BTN_SIZE);
+    typeBtnNum->setObjectName("大写字母A-Z");
+    typeBtnUpper->setProperty("typesel", true);
+    typeBtnUpper->setText(tr("大写字母A-Z"));
+
+    typeBtnLower = new QPushButton(typeSelWindow);
+    typeBtnLower->setFixedSize(3*BTN_SIZE, BTN_SIZE);
+    typeBtnNum->setObjectName("小写字母a-z");
+    typeBtnLower->setProperty("typesel", true);
+    typeBtnLower->setText(tr("小写字母a-z"));
+
+    typeBtnSymbol = new QPushButton(typeSelWindow);
+    typeBtnSymbol->setFixedSize(3*BTN_SIZE, BTN_SIZE);
+    typeBtnNum->setObjectName("符号#?!");
+    typeBtnSymbol->setProperty("typesel", true);
+    typeBtnSymbol->setText(tr("符号#?!"));
+
+
+    QGridLayout *typeSelLayout = new QGridLayout;
+
+    typeSelLayout->addWidget(typeBtnUpper, 0,1,1,3);
+    typeSelLayout->addWidget(typeBtnNum, 2,1,1,3);
+    typeSelLayout->addWidget(typeBtnLower, 0,7,1,3);
+    typeSelLayout->addWidget(typeBtnSymbol, 2,7,1,3);
+
+
+    // 设置行和列间距
+    typeSelLayout->setSpacing(0);
+
+    // 设置和外框间距
+    typeSelLayout->setContentsMargins(2, 0, 0, 0);
+    typeSelWindow->setLayout(typeSelLayout);
+
+
+    qDebug() << "typesellayout ok";
+
+
 
     index_num = keyWindow->addWidget(numberWindow);
     index_letter = keyWindow->addWidget(letterWindow);
     index_sign = keyWindow->addWidget(signWindow);
+    index_type = keyWindow->addWidget(typeSelWindow);
+
     keyWindow->setCurrentIndex(index_num);
 
     qDebug() << "keyWindow ok";
@@ -697,23 +782,23 @@ void keyBoard::changeType(QString type)
 {
     if (type == "min")
     {
-        typeBtn->setText(tr("小写"));
+        //typeBtn->setText(tr("小写"));
         changeLetter(false);
         keyWindow->setCurrentIndex(index_letter);
     }
     else if (type == "max")
     {
-        typeBtn->setText(tr("大写"));
+        //typeBtn->setText(tr("大写"));
         changeLetter(true);
     }
     else if (type == "num")
     {
-        typeBtn->setText(tr("数字"));
+        //typeBtn->setText(tr("数字"));
         keyWindow->setCurrentIndex(index_num);
     }
     else if (type == "sign")
     {
-        typeBtn->setText(tr("符号"));
+        //typeBtn->setText(tr("符号"));
         keyWindow->setCurrentIndex(index_sign);
     }
 }
