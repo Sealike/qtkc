@@ -556,12 +556,16 @@ void Widget::slot_4G_Data(QString str)
         {
             if(action == "disable")
             {
+                PrccessParam.pos_freq = 0;
                 sys_param.task.reportfreq = "0";
+                m_ui_param->reportfreq = 0;
                 J_Config.config_save(sys_param);
             }
             else
             {
+                PrccessParam.pos_freq = 10;
                 sys_param.task.reportfreq = "10";
+                m_ui_param->reportfreq = 10;
                 J_Config.config_save(sys_param);
             }
         }

@@ -230,6 +230,7 @@ QString Widget::HttpResultParseStore(QString strResult)
                                         int temp = (val.toInt());
                                         if(temp <=0)  temp = 10;
                                         m_ui_param->reportfreq = temp*1000;
+                                        PrccessParam.pos_freq = m_ui_param->reportfreq;
                                         ret = "reportfreq ok";
                                         ret = "ok";
                                     }

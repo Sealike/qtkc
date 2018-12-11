@@ -142,6 +142,13 @@ void GNSSThread::gnss_data_process(QString& str)
             QString slon = QString::number(lon, 10, 8);
 
             PrccessParam.lon = slon;
+
+            if(PrccessParam.pos_freq == 0)
+            {
+                PrccessParam.lon = "0.0";
+                PrccessParam.lat = "0.0";
+                PrccessParam.hgt = "0.0";
+            }
         }
     }
     else

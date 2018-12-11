@@ -11,7 +11,7 @@ void NWThread::run()
     qDebug() << "NWThread::run() " << QThread::currentThreadId();
     this->socket = new QTcpSocket();
     qDebug() << "QTcpSocket()";
-    while(!this-)
+    while(!this->threadfinished)
     {
         if(!socket->isOpen())
         {

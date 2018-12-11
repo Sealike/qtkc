@@ -55,6 +55,7 @@ typedef struct
     QString sess_pwd;
 
     QString unlocktype;     // unlock, superunlock, remoteunlock
+    int     pos_freq;
 
 } PrccessParam_tt, *PrccessParam_pt;
 
