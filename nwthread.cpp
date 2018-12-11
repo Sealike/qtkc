@@ -2,7 +2,7 @@
 #include <QTcpSocket>
 #include <QDateTime>
 
-QString NWThread::serverIP = "27.128.164.177";
+QString NWThread::serverIP = "192.168.21.254";
 int NWThread::serverPort = 7120;
 qint64 NWThread::pingdelay = 5000;
 
@@ -11,7 +11,7 @@ void NWThread::run()
     qDebug() << "NWThread::run() " << QThread::currentThreadId();
     this->socket = new QTcpSocket();
     qDebug() << "QTcpSocket()";
-    while(!this->threadfinished)
+    while(!this-)
     {
         if(!socket->isOpen())
         {

@@ -11,6 +11,13 @@
 #include <QByteArray>
 #include <QMutex>
 #include <QMutexLocker>
+
+
+
+#define server_ip "192.168.21.254"
+#define server_http_port "8080"
+#define auth_netgate_ip "192.168.1.2"
+
 //http请求类
 class Http : public QObject
 {

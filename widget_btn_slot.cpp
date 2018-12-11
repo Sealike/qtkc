@@ -58,7 +58,8 @@ void Widget::on_btn_B2Indentity_clicked()
 //       show_label("正在认证...");
 
 //       Http* pHttpFun = new Http();
-//       QString strUrl = "http://192.168.1.2/cgi/user.cgi?req=1016";
+//       //QString strUrl = "http://192.168.1.2/cgi/user.cgi?req=1016";
+//       QString strUrl = "http://"auth_netgate_ip"192.168.1.2/cgi/user.cgi?req=1016";
 //       connect(pHttpFun,SIGNAL(signal_requestFinished(bool,const QString&)), //http请求结束信号
 //               this,SLOT(slot_B2CheckStatus(bool,const QString&)));
 //       pHttpFun->get(strUrl);
@@ -190,7 +191,8 @@ void Widget::on_btn_InfoReport_clicked()
     }
 
     // to be continued ... http send
-    QString strUrl = "http://27.128.164.177:9090/xxxgw/boxid/report?devid="
+
+    QString strUrl = "http://"server_ip":"server_http_port"/xxxgw/boxid/report?devid="
             + devid + "&bdid=" + bdid;
 
     Http* pHttpFun = new Http();
@@ -217,7 +219,9 @@ void Widget::on_btn_taskGet_clicked()
     qDebug() << "slot_requestBtnClicked";
 
     Http* pHttpFun = new Http();
-    QString strUrl = "http://27.128.164.177:9090/xxxgw/agw/gettask?devid=" + sys_param.devid;
+
+//  QString strUrl = "http://27.128.164.177:9090/xxxgw/agw/gettask?devid=" + sys_param.devid;
+    QString strUrl = "http://"server_ip":"server_http_port"/xxxgw/agw/gettask?devid=" + sys_param.devid;
     connect(pHttpFun,SIGNAL(signal_requestFinished(bool,const QString&)), //http请求结束信号
             this,SLOT(slot_taskGetResult(bool,const QString&)));
     pHttpFun->get(strUrl);

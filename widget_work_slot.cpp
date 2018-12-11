@@ -74,7 +74,8 @@ void Widget::slot_B2CheckStatus(bool bSuccess, QString& strResult)
             //尚未进行开机口令验证，需要进入第二步来验证开机口令。
             QString ret = edit_B2Indentity->text();
             Http* pHttpFun = new Http();
-            QString strUrl = "http://192.168.1.2/cgi/user.cgi?req=1&user_type=3&user_pwd=" + ret;
+//            QString strUrl = "http://192.168.1.2/cgi/user.cgi?req=1&user_type=3&user_pwd=" + ret;
+            QString strUrl = "http://"auth_netgate_ip"/cgi/user.cgi?req=1&user_type=3&user_pwd=" + ret;
             connect(pHttpFun,SIGNAL(signal_requestFinished(bool,const QString&)), //http请求结束信号
                     this,SLOT(slot_B2LoginStatus(bool,const QString&)));
             pHttpFun->get(strUrl);
@@ -269,7 +270,8 @@ void Widget::slot_loginResult(bool bSuccess,QString strResult)
             task_status = TASK_RUNNING;
             // 设置任务状态为“在执行”
             Http* pHttpFun = new Http();
-            QString strUrl = "http://27.128.164.177:9090/xxxgw/boxid/updatestatus?opuserid=devid&taskid="+PrccessParam.taskid+ "&status=%e5%9c%a8%e6%89%a7%e8%a1%8c";
+//            QString strUrl = "http://27.128.164.177:9090/xxxgw/boxid/updatestatus?opuserid=devid&taskid="+PrccessParam.taskid+ "&status=%e5%9c%a8%e6%89%a7%e8%a1%8c";
+            QString strUrl = "http://"server_ip":"server_http_port"/xxxgw/boxid/updatestatus?opuserid=devid&taskid="+PrccessParam.taskid+ "&status=%e5%9c%a8%e6%89%a7%e8%a1%8c";
             pHttpFun->get(strUrl);
 
             //状态存盘
