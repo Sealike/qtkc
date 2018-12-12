@@ -346,7 +346,8 @@ void Widget::layout_init()
 
 
     setLayout(v_Layout);
-    s_Layout->setCurrentIndex(widget_B2Indentity_index);
+//    s_Layout->setCurrentIndex(widget_B2Indentity_index);
+    s_Layout->setCurrentIndex(widget_FingerPrint_index);
 
     qDebug() << "layout_init success...";
 }
