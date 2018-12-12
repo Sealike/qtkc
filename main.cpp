@@ -92,6 +92,9 @@ int main(int argc, char *argv[])
 
     BDThread bd;
     bd.start();
+    splash.clearMessage();
+    splash.showMessage("正在初始化设备，请稍候...", Qt::AlignBottom|Qt::AlignHCenter, Qt::black);
+
 
     GNSSThread gnss;
     gnss.start();

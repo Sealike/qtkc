@@ -239,6 +239,7 @@ void suoThread::suo_recvdata_process(QString& str)
 
 bool suoThread::suo_control(QString str)
 {
+    qDebug() << "suo_control(" << str << ")";
     QString send_data;
     QByteArray data;
     QString maskstr;

@@ -401,6 +401,7 @@ void Widget::on_btn_fingerPrint3_clicked()
 
 void Widget::on_btn_fingerPrint_continue_clicked()
 {
+    qDebug() << "on_btn_fingerPrint_continue_clicked";
      suoThread::suo_control("$FINGE");
 }
 
