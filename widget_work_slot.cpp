@@ -311,7 +311,8 @@ void Widget::slot_loginResult(bool bSuccess,QString strResult)
         edit_userName->clear();
         edit_userPwd->clear();
         // open position report timer
-        m_timer_posrpt->start(m_ui_param->reportfreq);
+        if(m_ui_param->reportfreq != 0) m_timer_posrpt->start(m_ui_param->reportfreq);
+
         m_timer_starpt->start(STATUS_REPORT_TIME);
 
     }
@@ -556,17 +557,20 @@ void Widget::slot_4G_Data(QString str)
         {
             if(action == "disable")
             {
-                PrccessParam.pos_freq = 0;
-                sys_param.task.reportfreq = "0";
+                PrccessParam.pos_freq = 0;                
                 m_ui_param->reportfreq = 0;
-                J_Config.config_save(sys_param);
+                m_timer_posrpt->stop();
+//                sys_param.task.reportfreq = "0";
+//                J_Config.config_save(sys_param);
             }
             else
             {
-                PrccessParam.pos_freq = 10;
-                sys_param.task.reportfreq = "10";
-                m_ui_param->reportfreq = 10;
-                J_Config.config_save(sys_param);
+                PrccessParam.pos_freq = 10 * 1000;
+                m_ui_param->reportfreq = 10 * 1000;
+                m_timer_posrpt->start(m_ui_param->reportfreq);
+//                sys_param.task.reportfreq = "10";
+//                m_ui_param->reportfreq = 10 * 1000;
+//                J_Config.config_save(sys_param);
             }
         }
         else if(ret == "sta")

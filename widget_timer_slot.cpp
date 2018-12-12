@@ -223,7 +223,8 @@ void Widget::m_timer_posrpt_out()
         }
     }
 
-    m_timer_posrpt->start(m_ui_param->reportfreq);
+    if(m_ui_param->reportfreq !=0)
+        m_timer_posrpt->start(m_ui_param->reportfreq);
 }
 
 
