@@ -680,7 +680,7 @@ void Widget::slot_suo_ack(QString msg)
             generate_WaringMsb("指纹录入失败！请重试...");
 
             // send FINGE OPEN cmd to the lock, to restart input fingerprints....
-            suoThread::suo_control("$FINGE");
+            //suoThread::suo_control("$FINGE");
 
         }
 
