@@ -16,6 +16,8 @@
 
 void Widget::switch_by_stage()
 {
+    qDebug() << "swtich_by_stage() begin...";
+
     int stage;
     bool flag_b2 = false;
     bool flag_infoRpt = false;
@@ -24,6 +26,7 @@ void Widget::switch_by_stage()
 
     if(sys_param.status.b2indentity == "yes")
     {
+        qDebug() << "sys_param.status.b2indentity == \"yes\", flag_b2=true";
         flag_b2 = true;
     }
     if(sys_param.status.inforpt == "yes")
@@ -46,6 +49,7 @@ void Widget::switch_by_stage()
     if( flag_b2 && flag_infoRpt && flag_bdid_equal && flag_isTask)   stage = 4;
 
 
+    qDebug() << "stage : " << stage;
 
     switch (stage){
     case 1:
@@ -141,7 +145,7 @@ void Widget::config_init()
 
     dlclose(handle);      //关闭调用动态库句柄
 
-    if(result == 0 && status[0] == '5')
+    if(result == 0 && status[0] == 5)
         switch_by_stage();
     else
         s_Layout->setCurrentIndex(widget_B2Indentity_index);
