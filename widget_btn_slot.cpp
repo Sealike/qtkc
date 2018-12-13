@@ -666,7 +666,25 @@ void Widget::on_btn_taskResume_clicked()
 void Widget::on_btn_taskComplete_clicked()
 {
     autoLockScreen_stop();
-    if(task_status == TASK_RUNNING)
+
+    if(sys_param.taskmode == "special")
+    {
+        int ret= generate_SelectMsb("你确定要完成任务吗？");
+        if(ret == QMessageBox::Ok)
+        {
+            label_tipDialog->setText("正在发起任务完成请求，请稍候...");
+            s_Layout->setCurrentIndex(widget_tipDialog_index);
+
+            QString msg = Network_Job::taskdone_cmd_send();
+            nwthread->nw_send_data(msg);
+
+            qDebug() << "task complete: "<< msg;
+            m_timer_taskComplete->start(30000);
+            m_timer_1s->start(1000);
+
+        }
+    }
+    else if(task_status == TASK_RUNNING)
     {
         int ret= generate_SelectMsb("你确定要完成任务吗？");
         if(ret == QMessageBox::Ok)
@@ -682,7 +700,7 @@ void Widget::on_btn_taskComplete_clicked()
 
         }
     }
-    if(task_status == TASK_PAUSE)
+    else if(task_status == TASK_PAUSE)
     {
         generate_WaringMsb("任务已暂停！请先恢复任务...");
     }
@@ -915,7 +933,7 @@ void Widget::on_btn_dyncode_unlock_clicked()
 
         suoThread::suo_control("$OLOCK");
 
-        show_label("正在开锁，请稍候...");
+        //show_label("正在开锁，请稍候...");
         edit_dyncode->clear();
     }
     else
@@ -1138,11 +1156,21 @@ void Widget::on_btn_Supercode_unlock_clicked()//wy
     isSendUnlockLog = true;
     suoParam.Suo_State = SUO_OPEN;
 
+    QString input = edit_Supercode->text();
+
+    qDebug() << "edit_Supercode" << input;
+
+    if(sys_param.superpassword != input)
+    {
+        generate_WaringMsb("口令错误！");
+        return;
+    }
+
     PrccessParam.unlocktype = "superunlock";
 
     suoThread::suo_control("$OLOCK");
 
-    show_label("正在开锁，请稍候...");
+    //show_label("正在开锁，请稍候...");
     edit_Supercode->clear();
 
 
@@ -1179,9 +1207,17 @@ void Widget::on_btn_feixing_clicked()//wy
 //        {
 
 //        }
+        int ret = 0;
 //        generate_InfoMsb("你确定要打开飞行模式吗？");
-        int ret= generate_SelectMsb("你确定要打开飞行模式吗？");
-//        int ret= generate_SelectMsb("你确定要关闭飞行模式吗？");
+         if(m_ui_param->feixingmode == "flyoff")
+         {
+             ret= generate_SelectMsb("你确定要打开飞行模式吗？");
+         }
+         else
+         {
+             ret= generate_SelectMsb("你确定要关闭飞行模式吗？");
+         }
+//
         if(ret == QMessageBox::Ok)
         {
             qDebug()<<"open fly mode";

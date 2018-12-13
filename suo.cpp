@@ -50,6 +50,8 @@ void suoThread::run(){
     suoParam.Suo_bleSound=S_BLE_ON;
     suoParam.Suo_positionSound=S_POSITION_ON;
 
+    //suoParam.Suo_allSound=S_OFF;
+    suo_control("$SOUND");
 
     while (1)
     {
@@ -248,7 +250,7 @@ bool suoThread::suo_control(QString str)
     if(str.startsWith("$SOUND"))
     {
         send_data.clear();
-        send_data+="$SOUND";
+        send_data+="$SOUND,";
         send_data+=suoParam.Suo_allSound;
         send_data+=suoParam.Suo_timeoutSound;
         send_data+=suoParam.Suo_batterySound;
