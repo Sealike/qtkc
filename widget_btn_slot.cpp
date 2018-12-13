@@ -529,11 +529,11 @@ void Widget::on_btn_unlock4G_clicked()
         {
 //            double now_lon;
 //            double now_lat;
-            if(unlock_in_area() == false)
-            {
-                generate_WaringMsb("not in area");
-                return;
-            }
+//            if(unlock_in_area() == false)
+//            {
+//                generate_WaringMsb("not in area");
+//                return;
+//            }
 
             widget_resume_index = s_Layout->currentIndex();
             label_tipDialog->setText("正在获取开锁码，请稍候...");
@@ -592,11 +592,11 @@ if(Check_Taskmode()=="special")
         int ret= generate_SelectMsb("你确定要使用北斗解锁吗？");
         if(ret == QMessageBox::Ok)
         {
-            if(unlock_in_area() == false)
-            {
-                generate_WaringMsb("not in area.");
-                return;
-            }
+//            if(unlock_in_area() == false)
+//            {
+//                generate_WaringMsb("not in area.");
+//                return;
+//            }
 
             BDThread::bd_unlock_cmd();
 
