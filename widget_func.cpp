@@ -109,6 +109,43 @@ void Widget::config_init()
         task_status = TASK_FINISH;
     }
 
+    // 先查询认证状态，如果是已认证，则不需要再进入B2模块认证界面，而是直接进入相应工作界面
+    qDebug() << "slot_ipsec_status";
+
+    void *handle;
+    char *error;
+    typedef unsigned int (*tf_get_error_t)(int, char *,int);
+    typedef int (*ipsec_status_t)(unsigned char *);
+    handle = dlopen ("libcall.so", RTLD_NOW);
+    if (!handle)
+    {
+        fprintf (stderr, "%s err\n", dlerror());
+        exit(1);
+    }
+    dlerror();
+    ipsec_status_t ipsec_status=(ipsec_status_t)dlsym(handle,"ipsec_status" );
+    tf_get_error_t tf_get_error=(tf_get_error_t)dlsym(handle,"tf_get_error" );
+    if ((error = dlerror()) != NULL)
+    {
+        fprintf (stderr, "%s\n", error);
+        exit(1);
+    }
+    unsigned char status[1];
+    int result = ipsec_status(status);         //通过指针pf的调用来调用动态库中的test函数
+    qDebug() << "result:" << result << " status:" << status[0];
+
+    char ErrorString[100];
+    unsigned int  error_rtn = tf_get_error(result,ErrorString,50);
+
+    qDebug() << "error_rtn:" << error_rtn << " ErrorString:" << ErrorString;
+
+    dlclose(handle);      //关闭调用动态库句柄
+
+    if(result != 0)
+        s_Layout->setCurrentIndex(widget_B2Indentity_index);
+    else
+        switch_by_stage();
+
 
 /*
     if(sys_param.status.b2indentity == "yes")
