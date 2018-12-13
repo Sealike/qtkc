@@ -71,19 +71,21 @@ void Widget::m_timer_login_out()
     m_timer_login->stop();
 
 
-    if(isFirstFingerPrint)
-    {
-        s_Layout->setCurrentIndex(widget_FingerPrint_index);
-        // if the fp has not been input before
-        // send FINGE OPEN cmd to the lock to start inputting.....
-        suoThread::suo_control("$FINGE");
-    }
-    else
-    {
-        // if the fp has already been input
-        // switch directly to the main widget....
-        s_Layout->setCurrentIndex(widget_main_index);
-    }
+     s_Layout->setCurrentIndex(widget_main_index);
+
+//    if(isFirstFingerPrint)
+//    {
+//        s_Layout->setCurrentIndex(widget_FingerPrint_index);
+//        // if the fp has not been input before
+//        // send FINGE OPEN cmd to the lock to start inputting.....
+//        suoThread::suo_control("$FINGE");
+//    }
+//    else
+//    {
+//        // if the fp has already been input
+//        // switch directly to the main widget....
+//        s_Layout->setCurrentIndex(widget_main_index);
+//    }
 }
 
 void Widget::m_timer_awake_out()

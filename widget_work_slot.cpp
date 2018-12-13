@@ -702,38 +702,56 @@ void Widget::slot_suo_ack(QString msg)
 
     }else if(str.startsWith("$JUDGE"))
     {
-        if (datalist[1] == "OK")
+        if( isLockScreen )
         {
-//            generate_InfoMsb("fingerPrint judged OK!");
-            if( isLockScreen )
-            {
-                s_Layout->setCurrentIndex(widget_unlockScreen_index);
-                set_background(this,"./Resource/background1.png");
-                suoThread::suo_control("$JUDGE");
-                screen_open();
-            }
-            if(s_Layout->currentIndex() == widget_FingerUnlock_index)
-            {   //wy
-                isSendUnlockLog = true;
-                suoParam.Suo_State = SUO_OPEN;
-
-                PrccessParam.unlocktype = "superunlock";
-
-                suoThread::suo_control("$OLOCK");
-
-                show_label("正在开锁，请稍候...");
-            }
+            s_Layout->setCurrentIndex(widget_unlockScreen_index);
+            set_background(this,"./Resource/background1.png");
+            suoThread::suo_control("$JUDGE");
+            screen_open();
         }
-        else
-        {
-//            generate_WaringMsb("fingerPring judged ERROR!");
-            if( isLockScreen )
-            {
-                //show phoneNumber
-                s_Layout->setCurrentIndex(widget_phoneNumber_index);
-                set_background(widget_phoneNumber,"./Resource/background1.png");
-            }
+        if(s_Layout->currentIndex() == widget_FingerUnlock_index)
+        {   //wy
+            isSendUnlockLog = true;
+            suoParam.Suo_State = SUO_OPEN;
+
+            PrccessParam.unlocktype = "superunlock";
+
+            suoThread::suo_control("$OLOCK");
+
+            show_label("正在开锁，请稍候...");
         }
+//        if (datalist[1] == "OK")
+//        {
+////            generate_InfoMsb("fingerPrint judged OK!");
+//            if( isLockScreen )
+//            {
+//                s_Layout->setCurrentIndex(widget_unlockScreen_index);
+//                set_background(this,"./Resource/background1.png");
+//                suoThread::suo_control("$JUDGE");
+//                screen_open();
+//            }
+//            if(s_Layout->currentIndex() == widget_FingerUnlock_index)
+//            {   //wy
+//                isSendUnlockLog = true;
+//                suoParam.Suo_State = SUO_OPEN;
+
+//                PrccessParam.unlocktype = "superunlock";
+
+//                suoThread::suo_control("$OLOCK");
+
+//                show_label("正在开锁，请稍候...");
+//            }
+//        }
+//        else
+//        {
+////            generate_WaringMsb("fingerPring judged ERROR!");
+//            if( isLockScreen )
+//            {
+//                //show phoneNumber
+//                s_Layout->setCurrentIndex(widget_phoneNumber_index);
+//                set_background(widget_phoneNumber,"./Resource/background1.png");
+//            }
+//        }
     }
 }
 
