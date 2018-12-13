@@ -464,6 +464,7 @@ void Widget::main_work_refresh()
     }else if(Check_Taskmode()=="nomal")
     {
        qDebug() << "FeiJiYaoTest------------------------";
+       label_feijiyao->hide();
        label_task_name->show();
        label_task_status->show();
        label_task_from->show();

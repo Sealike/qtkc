@@ -693,7 +693,7 @@ QWidget *Widget::getwidget_main()
 
 
     label_feijiyao->move(80, 80);//wy
-    label_task_name->move(200, 200);
+    label_task_name->move(80, 80);
     label_task_status->move(80, 130);
     label_task_from->move(80, 180);
     label_task_to->move(80, 230);
