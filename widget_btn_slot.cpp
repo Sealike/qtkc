@@ -136,12 +136,13 @@ void Widget::on_btn_B2Indentity_clicked()
          else if(sys_param.status.b2indentity != "yes")
          {
             // if ok and first verify, switch to changepwd page
-             widget_resume_index = widget_B2Indentity_index;
+             // widget_resume_index = widget_B2Indentity_index;
 
-              s_Layout->setCurrentIndex(widget_B2ChangePwd_index);
+             // s_Layout->setCurrentIndex(widget_B2ChangePwd_index);
 
              sys_param.status.b2indentity = "yes";
              J_Config.config_save(sys_param);
+             switch_by_stage();
          }
          else
          {

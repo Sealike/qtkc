@@ -141,10 +141,11 @@ void Widget::config_init()
 
     dlclose(handle);      //关闭调用动态库句柄
 
-    if(result != 0)
-        s_Layout->setCurrentIndex(widget_B2Indentity_index);
-    else
+    if(result == 0 && status[0] == '5')
         switch_by_stage();
+    else
+        s_Layout->setCurrentIndex(widget_B2Indentity_index);
+
 
 
 /*
