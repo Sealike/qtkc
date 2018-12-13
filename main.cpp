@@ -93,23 +93,39 @@ int main(int argc, char *argv[])
     BDThread bd;
     bd.start();
     splash.clearMessage();
-    splash.showMessage("正在初始化设备，请稍候...", Qt::AlignBottom|Qt::AlignHCenter, Qt::black);
+    splash.showMessage("北斗模块正在初始化......", Qt::AlignBottom|Qt::AlignHCenter, Qt::black);
 
 
+    splash.clearMessage();
+    splash.showMessage("北斗模块初始化完成！", Qt::AlignBottom|Qt::AlignHCenter, Qt::black);
     GNSSThread gnss;
     gnss.start();
 
+    splash.clearMessage();
+    splash.showMessage("指纹与锁正在初始化......", Qt::AlignBottom|Qt::AlignHCenter, Qt::black);
     suoThread suo;
     suo.start();
+    splash.clearMessage();
+    splash.showMessage("指纹与锁初始化完成！", Qt::AlignBottom|Qt::AlignHCenter, Qt::black);
 
+
+    splash.clearMessage();
+    splash.showMessage("认证状态查询中......", Qt::AlignBottom|Qt::AlignHCenter, Qt::black);
     Widget w;
     w.show();
+    splash.clearMessage();
+    splash.showMessage("认证状态查询完毕！", Qt::AlignBottom|Qt::AlignHCenter, Qt::black);
+
+
 
     BDThread::connect(&bd,SIGNAL(sig_cardId_Data(QString)),&w,SLOT(slot_cardId_data(QString)));
     BDThread::connect(&bd,SIGNAL(sig_bd_Data(QString)),&w,SLOT(slot_bd_bsi(QString))); // BDBSI info
     BDThread::connect(&bd,SIGNAL(sig_unlock_result(bool,QString,QString)),&w,SLOT(slot_bd_unlock(bool,QString,QString)));// BD unlock result
     suoThread::connect(&suo,SIGNAL(sig_suo_ack(QString)),&w,SLOT(slot_suo_ack(QString)));  // suo acks
 
+
+    splash.clearMessage();
+    splash.showMessage("设备初始化完成！", Qt::AlignBottom|Qt::AlignHCenter, Qt::black);
     splash.finish(&w);
 
     return a.exec();
